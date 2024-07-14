@@ -1,0 +1,1042 @@
+{
+    "name": "cc1a5c9f-434f-4505-914f-28cbab5b4a1a",
+    "id": "/providers/Microsoft.Flow/flows/cc1a5c9f-434f-4505-914f-28cbab5b4a1a",
+    "type": "Microsoft.Flow/flows",
+    "properties": {
+        "apiId": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+        "displayName": "Daily bot",
+        "definition": {
+            "metadata": {
+                "workflowEntityId": null,
+                "processAdvisorMetadata": null,
+                "flowChargedByPaygo": null,
+                "flowclientsuspensionreason": "None",
+                "flowclientsuspensiontime": null,
+                "flowclientsuspensionreasondetails": null,
+                "creator": {
+                    "id": "8639805f-e831-4060-9d98-7d57d5340d36",
+                    "type": "User",
+                    "tenantId": "1682654c-afff-4760-8e95-b9d57482d7d0"
+                },
+                "provisioningMethod": "FromDefinition",
+                "failureAlertSubscription": true,
+                "clientLastModifiedTime": "2024-07-07T19:16:20.5812984Z",
+                "connectionKeySavedTimeKey": "2024-07-07T19:16:20.5812984Z"
+            },
+            "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+            "contentVersion": "undefined",
+            "parameters": {
+                "$authentication": {
+                    "defaultValue": {},
+                    "type": "SecureObject"
+                },
+                "$connections": {
+                    "defaultValue": {},
+                    "type": "Object"
+                }
+            },
+            "triggers": {
+                "⚙️_0_Define_Recurrence": {
+                    "recurrence": {
+                        "frequency": "Week",
+                        "interval": 1,
+                        "timeZone": "Eastern Standard Time",
+                        "startTime": "2024-04-18T00:00:00.000",
+                        "schedule": {
+                            "weekDays": [
+                                "Monday",
+                                "Tuesday",
+                                "Wednesday",
+                                "Thursday",
+                                "Friday"
+                            ],
+                            "hours": [
+                                "8"
+                            ],
+                            "minutes": [
+                                0
+                            ]
+                        }
+                    },
+                    "metadata": {
+                        "operationMetadataId": "c29dfdc1-6edf-49eb-a433-fe6f18db838e"
+                    },
+                    "type": "Recurrence",
+                    "description": "Daily bot by Sig Mandel.\nConfigure start time, time zone, hours\nExample Time zones:\nEastern Standard Time\nCentral European Time\nEastern Standard Time\nSA Pacific Standard Time"
+                }
+            },
+            "actions": {
+                "For_each": {
+                    "foreach": "@outputs('⚙️_3_Define_participating_users_(tag)')?['body/value']",
+                    "actions": {
+                        "Post_Form_to_user": {
+                            "runAfter": {
+                                "name_clean": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "limit": {
+                                "timeout": "PT1H35M"
+                            },
+                            "metadata": {
+                                "operationMetadataId": "1499c839-e3e6-43c0-b28a-a5c9c2088fb1"
+                            },
+                            "type": "OpenApiConnectionWebhook",
+                            "inputs": {
+                                "parameters": {
+                                    "poster": "Flow bot",
+                                    "location": "Chat with Flow bot",
+                                    "body/body/messageBody": "@outputs('Template_for_Daily_Form')",
+                                    "body/body/updateMessage": "@outputs('Translations').thankyouAfterSend",
+                                    "body/body/recipient/to": "@{items('For_each')?['userId']}",
+                                    "body/body/recipient/isAlert": true
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                                    "connectionName": "shared_teams",
+                                    "operationId": "PostCardAndWaitForResponse"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            },
+                            "description": "Here configure the form timeout under Settings/Action Timeout. Default is PT1H35M (1 hour 35 min)"
+                        },
+                        "Post_user_response_to_channel": {
+                            "runAfter": {
+                                "prefix_first_user": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "0838e6ac-c8f1-4939-bb9f-f2fa3c5e90d3"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                                "parameters": {
+                                    "poster": "Flow bot",
+                                    "location": "Channel",
+                                    "body/recipient/groupId": "@variables('idTeam')",
+                                    "body/recipient/channelId": "@variables('idChannel')",
+                                    "body/messageBody": "{\n    \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n    \"type\": \"AdaptiveCard\",\n    \"version\": \"1.3\",\n    \"body\": [\n       {\n            \"type\": \"Container\",\n\"style\": \"accent\",\n            \"items\": [\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"Daily @{variables('dow')} - @{outputs('prefix_first_user')}@{outputs('form_data').name}\",\n            \"weight\": \"Bolder\",\n            \"size\": \"medium\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{outputs('Translations').achievedBeforeTitle}:\",\n            \"weight\": \"Bolder\",\n            \"wrap\": true,\n            \"spacing\": \"Medium\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{outputs('form_data').before}\",\n            \"wrap\": true,\n            \"spacing\": \"None\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{outputs('Translations').goalsTodayTitle}:\",\n            \"weight\": \"Bolder\",\n            \"wrap\": true,\n            \"spacing\": \"Medium\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{outputs('form_data').today}\",\n            \"wrap\": true,\n            \"spacing\": \"None\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{outputs('Translations').blockersTitle}:\",\n            \"weight\": \"Bolder\",\n            \"wrap\": true,\n            \"spacing\": \"Medium\"\n        },\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"@{outputs('form_data').blocking}\",\n            \"wrap\": true,\n            \"spacing\": \"None\"\n        }\n      ]\n   }\n ]\n}"
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                                    "connectionName": "shared_teams",
+                                    "operationId": "PostCardToConversation"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            },
+                            "description": ""
+                        },
+                        "Post_time_expired_message_to_user": {
+                            "runAfter": {
+                                "Post_Form_to_user": [
+                                    "TimedOut"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "7a87b6b8-fa2d-4435-898b-b6a8906cdf84"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                                "parameters": {
+                                    "poster": "Flow bot",
+                                    "location": "Chat with Flow bot",
+                                    "body/recipient": "@items('For_each')?['userId']",
+                                    "body/messageBody": "<p>@{outputs('Translations').expiredTimeAlertPre} <a href=\"@{variables('urlChannel')}\">@{outputs('Translations').expiredTimeAlertMiddleLink}</a> @{outputs('Translations').expiredTimeAlertPost}</p>",
+                                    "body/isAlert": true
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                                    "connectionName": "shared_teams",
+                                    "operationId": "PostMessageToConversation"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            },
+                            "description": "builds the message using:\noutputs('Translations').expiredTimeAlertPre\noutputs('Translations').expiredTimeAlertMiddleLink\noutputs('Translations').expiredTimeAlertPost"
+                        },
+                        "give_link_to_user": {
+                            "runAfter": {
+                                "Post_user_response_to_channel": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "aa3fc18a-9e9b-4663-a418-7ac9124556f0"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                                "parameters": {
+                                    "poster": "Flow bot",
+                                    "location": "Chat with Flow bot",
+                                    "body/recipient": "@items('For_each')?['userId']",
+                                    "body/messageBody": "<p>@{outputs('prefix_first_user')}@{outputs('Translations').replyToUserPre} <a href=\"@{outputs('Post_user_response_to_channel')?['body/messageLink']}\">@{outputs('Translations').replyToUserLink}</a>.</p><p>@{outputs('Translations').replyToUserPost}</p><br><p>@{replace(body('Post_Form_to_user')?['data']?['goalsToday'],variables('newline'), concat(variables('newline'),variables('newline')))}</p><br>",
+                                    "body/isAlert": false
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                                    "connectionName": "shared_teams",
+                                    "operationId": "PostMessageToConversation"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            }
+                        },
+                        "Append_to_orderedUsers": {
+                            "runAfter": {
+                                "form_data": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "2838fe3e-46b7-46f6-a502-721c6094be91"
+                            },
+                            "type": "AppendToArrayVariable",
+                            "inputs": {
+                                "name": "orderedUsers",
+                                "value": "@outputs('form_data')"
+                            }
+                        },
+                        "Append_fail_to_orderedUsers": {
+                            "runAfter": {
+                                "expired_form": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "4fcc2ddd-9f05-4eaa-96a4-b8b8ce23a75b"
+                            },
+                            "type": "AppendToArrayVariable",
+                            "inputs": {
+                                "name": "orderedUsers",
+                                "value": "@outputs('expired_form')"
+                            }
+                        },
+                        "form_data": {
+                            "runAfter": {
+                                "block_clean": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "70e901a8-ea71-4c20-ab58-f18132800e45"
+                            },
+                            "type": "Compose",
+                            "inputs": {
+                                "id": "@{items('For_each')?['userId']}",
+                                "name": "@{outputs('name_clean')}",
+                                "before": "@{replace(replace(replace(body('Post_Form_to_user')?['data']?['achievedBefore'], '\"', ''''), '\\', '\\\\'),variables('newline'),'\\n\\n')\n}",
+                                "today": "@{replace(replace(replace(body('Post_Form_to_user')?['data']?['goalsToday'], '\"', ''''), '\\', '\\\\'),variables('newline'),'\\n\\n')}",
+                                "blocking": "@{    replace(\n        replace(\n            replace(\n                outputs('block_clean'), \n                '\"', \n                ''''\n            ), \n            '\\', \n            '\\\\'\n        ), \n        variables('newline'), \n        '\\n\\n'\n    )}"
+                            }
+                        },
+                        "prefix_first_user": {
+                            "runAfter": {
+                                "Append_to_orderedUsers": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "33fe6c8e-0378-44d4-aefc-bad82cf3d28c"
+                            },
+                            "type": "Compose",
+                            "inputs": "@if(equals(items('For_each')?['userId'], first(variables('orderedUsers')).id), '👑', '')"
+                        },
+                        "expired_form": {
+                            "runAfter": {
+                                "Post_time_expired_message_to_user": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "e22c1d59-2d40-406c-a352-fc9c5c587c8d"
+                            },
+                            "type": "Compose",
+                            "inputs": {
+                                "id": "@{items('For_each')?['userId']}",
+                                "name": "@{outputs('name_clean')}",
+                                "before": "-",
+                                "today": "-",
+                                "blocking": "-"
+                            }
+                        },
+                        "name_clean": {
+                            "metadata": {
+                                "operationMetadataId": "3f0167cc-65a9-4f93-a224-cc6f7dfdb190"
+                            },
+                            "type": "Compose",
+                            "inputs": "@if(greater(length(split(items('For_each')?['displayName'], '_')), 1), split(items('For_each')?['displayName'], '_')[1], items('For_each')?['displayName'])",
+                            "description": "my company adds a prefix ending with \"_\" to the names of certain users."
+                        },
+                        "block_clean": {
+                            "runAfter": {
+                                "Compose_time": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "9034f2e2-a4e8-47da-a1ed-3162c0cdddf5"
+                            },
+                            "type": "Compose",
+                            "inputs": "@if(\n    and(\n        not(contains(coalesce(body('Post_Form_to_user')?['data']?['blockers'], ''), ' ')),\n        not(contains(coalesce(body('Post_Form_to_user')?['data']?['blockers'], ''), variables('newline'))),\n        startsWith(toLower(coalesce(body('Post_Form_to_user')?['data']?['blockers'], '')), 'ning')\n    ), \n    '', \n    coalesce(body('Post_Form_to_user')?['data']?['blockers'], '')\n)\n"
+                        },
+                        "Compose_time": {
+                            "runAfter": {
+                                "Post_Form_to_user": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "40ca9b34-796d-497a-98cf-1cecc65a0899"
+                            },
+                            "type": "Compose",
+                            "inputs": "@formatDateTime(convertTimeZone(utcNow(), 'UTC', variables('timezone')), 'HH:mm:ss')"
+                        },
+                        "Add_to_excel": {
+                            "runAfter": {
+                                "Get_user_profile": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "01YTSPJD3KA7WFRIME6BBK2IFMPPFNMDFN": "/General/Seguimiento de Proyecto/daily.xlsx",
+                                "tableId": "@variables('idTableExcel')",
+                                "operationMetadataId": "ca2b3e6b-0176-423a-9e19-3d4c3e9540c6"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                                "parameters": {
+                                    "source": "@variables('groupIdExcel')",
+                                    "drive": "@variables('driveExcel')",
+                                    "file": "@variables('fileExcel')",
+                                    "table": "@variables('idTableExcel')",
+                                    "item": {
+                                        "date": "@{variables('date')}",
+                                        "time": "@{outputs('Compose_time')}",
+                                        "squad": "@{variables('groupName')}",
+                                        "name": "@{outputs('name_clean')}",
+                                        "role": "@{outputs('Get_user_profile')?['body/jobTitle']}",
+                                        "before": "@{concat('''', coalesce(body('Post_Form_to_user')?['data']?['achievedBefore'], ''))}",
+                                        "today": "@{concat('''', coalesce(body('Post_Form_to_user')?['data']?['goalsToday'], ''))}",
+                                        "blocking": "@{if(empty(outputs('block_clean')), '', concat('''', outputs('block_clean')))}"
+                                    }
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+                                    "connectionName": "shared_excelonlinebusiness",
+                                    "operationId": "AddRowV2"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            }
+                        },
+                        "Get_user_profile": {
+                            "runAfter": {
+                                "give_link_to_user": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "metadata": {
+                                "operationMetadataId": "2f96c482-04fa-4670-a2c7-83d1fb705c86"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                                "parameters": {
+                                    "id": "@items('For_each')?['userId']",
+                                    "$select": "jobTitle"
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+                                    "connectionName": "shared_office365users",
+                                    "operationId": "UserProfile_V2"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            }
+                        }
+                    },
+                    "runAfter": {
+                        "Template_for_Daily_Form": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "a4731ad7-7643-49e1-9cb6-91416c4c0132"
+                    },
+                    "type": "Foreach",
+                    "runtimeConfiguration": {
+                        "concurrency": {
+                            "repetitions": 30
+                        }
+                    }
+                },
+                "Initialize_dow": {
+                    "runAfter": {
+                        "Initialize_orderedUsers": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "d3ca3dce-8323-44e8-86cb-67a1c7da710a"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "dow",
+                                "type": "string",
+                                "value": "@{formatDateTime(convertTimeZone(utcNow(), 'UTC', variables('timezone')), 'dddd', variables('language'))}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_newline": {
+                    "runAfter": {
+                        "Initialize_date": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "d3b11720-fe10-4ecb-8706-de2f08c0d982"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "newline",
+                                "type": "string",
+                                "value": "\n"
+                            }
+                        ]
+                    }
+                },
+                "⚙️_3_Define_participating_users_(tag)": {
+                    "runAfter": {
+                        "⚙️_2_Define_URL_of_channel_to_post": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "c8b14312-ce45-4550-a90d-2b8f5b93cefd"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "parameters": {
+                            "groupId": "",
+                            "tagId": ""
+                        },
+                        "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                            "connectionName": "shared_teams",
+                            "operationId": "GetTagMembers"
+                        },
+                        "retryPolicy": {
+                            "type": "exponential",
+                            "count": 4,
+                            "interval": "PT20S",
+                            "minimumInterval": "PT20S",
+                            "maximumInterval": "PT2M"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                    },
+                    "description": "configure team & tag. The group is defined by the tag in that team."
+                },
+                "Initialize_orderedUsers": {
+                    "runAfter": {
+                        "Initialize_groupName": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "f444b936-d414-4f5c-b9ee-2e66c38cc644"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "orderedUsers",
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "description": ""
+                },
+                "Terminate": {
+                    "runAfter": {
+                        "check_to_send_email": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "7c8ff138-be76-43cf-b9ee-206c0cf9ed80"
+                    },
+                    "type": "Terminate",
+                    "inputs": {
+                        "runStatus": "Succeeded"
+                    }
+                },
+                "Create_HTML_table": {
+                    "runAfter": {
+                        "For_each": [
+                            "Succeeded",
+                            "Failed",
+                            "TimedOut"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "3bbb8a46-f0c5-402b-9e92-4826dfbbfb54"
+                    },
+                    "type": "Table",
+                    "inputs": {
+                        "from": "@variables('orderedUsers')",
+                        "format": "HTML",
+                        "columns": [
+                            {
+                                "header": "@{outputs('Translations').nameField}",
+                                "value": "@{item()?['name']}"
+                            },
+                            {
+                                "header": "@{outputs('Translations').achievedBeforeTitle}",
+                                "value": "@{item()?['before']}"
+                            },
+                            {
+                                "header": "@{outputs('Translations').goalsTodayTitle}",
+                                "value": "@{item()?['today']}"
+                            },
+                            {
+                                "header": "@{outputs('Translations').blockersTitle}",
+                                "value": "@{item()?['blocking']}"
+                            }
+                        ]
+                    }
+                },
+                "Post_table_in_channel": {
+                    "runAfter": {
+                        "Add_styles": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "6076038f-5e59-495d-a247-de2ab9871635"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "parameters": {
+                            "poster": "Flow bot",
+                            "location": "Channel",
+                            "body/recipient/groupId": "@variables('idTeam')",
+                            "body/recipient/channelId": "@variables('idChannel')",
+                            "body/messageBody": "<p>Daily @{variables('dow')} @{variables('date')}</p><br><p>@{outputs('Add_styles')}</p>"
+                        },
+                        "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                            "connectionName": "shared_teams",
+                            "operationId": "PostMessageToConversation"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                    }
+                },
+                "Add_styles": {
+                    "runAfter": {
+                        "Create_HTML_table": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "65b8cd39-803f-4564-8cf2-e5cbce1fb1b0"
+                    },
+                    "type": "Compose",
+                    "inputs": "@replace(\n  replace(\n    replace(\n      replace(\n        replace(\n          body('Create_HTML_table'),\n          '\\n\\n',\n          '<br>'\n        ),\n        '<th>',\n        '<th style=\"background-color: #4472C4; color: #FFFFFF;\">'\n      ),\n      '<td>',\n      '<td style=\"border: 1px solid #DCDADA; padding: 10px; color: #000000; word-wrap: break-word;\">'\n    ),\n    '<table>',\n    '<table style=\"border-collapse: collapse;\">'\n  ),\n  '<tbody>',\n  '<tbody style=\"background-color: #f0f0f0;\">'\n)"
+                },
+                "⚙️_1_Define_email_to_send_daily_summary": {
+                    "runAfter": {},
+                    "metadata": {
+                        "operationMetadataId": "b84debc5-9131-4d3d-9b14-270b4c5458ac"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "email",
+                                "type": "string",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    "description": "define email to receive the daily summary (empty wont sent email)"
+                },
+                "check_to_send_email": {
+                    "actions": {
+                        "send_email": {
+                            "metadata": {
+                                "operationMetadataId": "2c748f6f-a0cb-47bb-82d6-6d08b37a23ba"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                                "parameters": {
+                                    "emailMessage/To": "@variables('email')",
+                                    "emailMessage/Subject": "Daily @{variables('dow')} - @{variables('groupName')}",
+                                    "emailMessage/Body": "<p>Daily @{variables('dow')} @{variables('date')}<span>\n</span></p><br><p>@{outputs('Add_styles')}</p><br><br><br><br><br><br><br><br><br><p>_____________________________</p><br>",
+                                    "emailMessage/Importance": "Normal"
+                                },
+                                "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                    "connectionName": "shared_office365",
+                                    "operationId": "SendEmailV2"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                            }
+                        }
+                    },
+                    "runAfter": {
+                        "Post_table_in_channel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "else": {
+                        "actions": {}
+                    },
+                    "expression": {
+                        "and": [
+                            {
+                                "not": {
+                                    "equals": [
+                                        "@variables('email')",
+                                        "@''"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "38b1e1fb-5f75-4670-a163-1f2ecf1562a3"
+                    },
+                    "type": "If"
+                },
+                "Initialize_date": {
+                    "runAfter": {
+                        "Initialize_dow": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "905b3898-cd1c-469c-aded-bd441951de2b"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "date",
+                                "type": "string",
+                                "value": "@{formatDateTime(convertTimeZone(utcNow(), 'UTC', variables('timezone')), 'yyyy-MM-dd')}"
+                            }
+                        ]
+                    }
+                },
+                "⚙️_2_Define_URL_of_channel_to_post": {
+                    "runAfter": {
+                        "⚙️_1_Define_email_to_send_daily_summary": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "urlChannel",
+                                "type": "string",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    "description": "copy from \"Copy Link to Channel\" in the Teams Channel to post the daily."
+                },
+                "Initialize_idTeam": {
+                    "runAfter": {
+                        "Initialize_fileExcel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "idTeam",
+                                "type": "string",
+                                "value": "@{decodeUriComponent(split(split(variables('urlChannel'), 'groupId=')[1], '&')[0])}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_idChannel": {
+                    "runAfter": {
+                        "Initialize_idTeam": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "idChannel",
+                                "type": "string",
+                                "value": "@{decodeUriComponent(split(split(variables('urlChannel'), 'channel/')[1], '/')[0])}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_groupName": {
+                    "runAfter": {
+                        "Initialize_idChannel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "groupName",
+                                "type": "string",
+                                "value": "@{decodeUriComponent(split(split(variables('urlChannel'), '.tacv2/')[1], '?')[0])}"
+                            }
+                        ]
+                    }
+                },
+                "⚙️_4_Define_timezone": {
+                    "runAfter": {
+                        "⚙️_3_Define_participating_users_(tag)": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "83fa217b-26fd-4c64-8a07-14d41529ab18"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "timezone",
+                                "type": "string",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    "description": "Examples:\nEastern Standard Time\nCentral Standard Time\nPacific Standard Time\nCentral European Time\nWestern European Time\nSA Pacific Standard Time"
+                },
+                "⚙️_6_Define_excel_channel": {
+                    "runAfter": {
+                        "⚙️_5_Define_language": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "01de9280-4976-4550-b8a0-b344e5f0084d"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "urlChannelExcel",
+                                "type": "string",
+                                "value": ""
+                            }
+                        ]
+                    }
+                },
+                "⚙️_7_Define_excel_file": {
+                    "runAfter": {
+                        "⚙️_6_Define_excel_channel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "tableId": null,
+                        "operationMetadataId": "29618ff8-2040-4bc1-9fe7-ba29947f5efc"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                        "parameters": {
+                            "source": "",
+                            "drive": "",
+                            "file": ""
+                        },
+                        "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+                            "connectionName": "shared_excelonlinebusiness",
+                            "operationId": "GetTables"
+                        },
+                        "retryPolicy": {
+                            "type": "exponential",
+                            "count": 4,
+                            "interval": "PT20S",
+                            "minimumInterval": "PT20S",
+                            "maximumInterval": "PT2M"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                    }
+                },
+                "Initialize_table_id_excel": {
+                    "runAfter": {
+                        "Translations": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "04c461a7-4690-4c70-80c8-d4ad77b7b1c5"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "idTableExcel",
+                                "type": "string",
+                                "value": "@{outputs('⚙️_7_Define_excel_file')?['body/value'][0].id}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_groupIdExcel": {
+                    "runAfter": {
+                        "Initialize_table_id_excel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "2c8d2f9d-89b6-45fc-a24a-08f5b456e802"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "groupIdExcel",
+                                "type": "string",
+                                "value": "@{concat('groups/', decodeUriComponent(split(split(variables('urlChannelExcel'), 'groupId=')[1], '&')[0]))}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_decodedPathExcel": {
+                    "runAfter": {
+                        "Initialize_groupIdExcel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "fd565219-8ce3-4c72-8af1-f5acc64f502b"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "decodedPathExcel",
+                                "type": "string",
+                                "value": "@{decodeUriComponent(outputs('⚙️_7_Define_excel_file')?['body/value'][0]['@odata.id'])}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_driveExcel": {
+                    "runAfter": {
+                        "Initialize_decodedPathExcel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "f55ee4df-22aa-4b5b-a1d4-0214fddc53df"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "driveExcel",
+                                "type": "string",
+                                "value": "@{split(split(variables('decodedPathExcel'), '/drives(''')[1], ''')')[0]}"
+                            }
+                        ]
+                    }
+                },
+                "Initialize_fileExcel": {
+                    "runAfter": {
+                        "Initialize_driveExcel": [
+                            "Succeeded"
+                        ]
+                    },
+                    "metadata": {
+                        "operationMetadataId": "523b10dd-5232-4575-8b79-d1b15dff8ec7"
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "fileExcel",
+                                "type": "string",
+                                "value": "@{split(split(variables('decodedPathExcel'), '/items(''')[1], ''')')[0]}"
+                            }
+                        ]
+                    }
+                },
+                "⚙️_5_Define_language": {
+                    "runAfter": {
+                        "⚙️_4_Define_timezone": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "InitializeVariable",
+                    "inputs": {
+                        "variables": [
+                            {
+                                "name": "language",
+                                "type": "string",
+                                "value": ""
+                            }
+                        ]
+                    },
+                    "description": "Examples:\nen-EN\nes-ES\npt-BR\nzh-CN\nhe-IL"
+                },
+                "Template_for_Daily_Form": {
+                    "runAfter": {
+                        "Initialize_newline": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "Compose",
+                    "inputs": {
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "type": "AdaptiveCard",
+                        "version": "1.3",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "style": "accent",
+                                "items": [
+                                    {
+                                        "type": "ColumnSet",
+                                        "columns": [
+                                            {
+                                                "type": "Column",
+                                                "width": "stretch",
+                                                "items": [
+                                                    {
+                                                        "type": "TextBlock",
+                                                        "text": "Daily - @{variables('groupName')}",
+                                                        "weight": "Bolder",
+                                                        "size": "Medium"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "width": "stretch",
+                                                "items": [
+                                                    {
+                                                        "type": "TextBlock",
+                                                        "text": "@{outputs('Translations').deadlineAlert}",
+                                                        "wrap": true,
+                                                        "horizontalAlignment": "Right",
+                                                        "fontType": "Monospace",
+                                                        "weight": "Lighter",
+                                                        "color": "Warning",
+                                                        "isSubtle": false
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Input.Text",
+                                        "id": "achievedBefore",
+                                        "isMultiline": true,
+                                        "isRequired": true,
+                                        "errorMessage": "@{outputs('Translations').obligatoryFieldError}",
+                                        "label": "@{outputs('Translations').achievedBeforeQuestion}",
+                                        "height": "stretch"
+                                    },
+                                    {
+                                        "type": "Input.Text",
+                                        "id": "goalsToday",
+                                        "isMultiline": true,
+                                        "isRequired": true,
+                                        "errorMessage": "@{outputs('Translations').deadlineAlert}",
+                                        "label": "@{outputs('Translations').goalsTodayQuestion}",
+                                        "spacing": "Medium",
+                                        "height": "stretch"
+                                    },
+                                    {
+                                        "type": "Input.Text",
+                                        "id": "blockers",
+                                        "placeholder": "@{outputs('Translations').placeholderBlocking}",
+                                        "isMultiline": true,
+                                        "label": "@{outputs('Translations').blockersQuestion}",
+                                        "spacing": "Medium",
+                                        "height": "stretch"
+                                    }
+                                ],
+                                "height": "stretch",
+                                "bleed": true
+                            }
+                        ],
+                        "actions": [
+                            {
+                                "type": "Action.Submit",
+                                "title": "@{outputs('Translations').sendButton}"
+                            }
+                        ]
+                    }
+                },
+                "Translations": {
+                    "runAfter": {
+                        "⚙️_7_Define_excel_file": [
+                            "Succeeded"
+                        ]
+                    },
+                    "type": "Compose",
+                    "inputs": {
+                        "deadlineAlert": "send before 9:35am",
+                        "obligatoryFieldError": "Obligatory.",
+                        "achievedBeforeQuestion": "¿What did you achieve yesterday?",
+                        "goalsTodayQuestion": "¿What are your goals for today?",
+                        "placeholderBlocking": "Leave empty if you don't have any.",
+                        "blockersQuestion": "What blocking issues or alerts do you have?",
+                        "sendButton": "Send Daily",
+                        "thankyouAfterSend": "Thanks!",
+                        "expiredTimeAlertPre": "Time expired to send the Daily. You can do it",
+                        "expiredTimeAlertMiddleLink": "in the channel",
+                        "expiredTimeAlertPost": "but it wont appear in the daily summary. 😞",
+                        "achievedBeforeTitle": "Achievements yesterday",
+                        "goalsTodayTitle": "Goals for today",
+                        "blockersTitle": "Blocking issues and alerts",
+                        "replyToUserPre": "Your Daily was",
+                        "replyToUserLink": "entered here",
+                        "replyToUserPost": "Goals for today:",
+                        "nameField": "Name"
+                    },
+                    "description": "Must have a single excel table with columns: date, time, squad, name, role, before, today, blocking"
+                }
+            }
+        },
+        "connectionReferences": {
+            "shared_teams": {
+                "connectionName": "shared-teams-08924f01-88b9-466c-a836-7bb146277670",
+                "source": "Embedded",
+                "id": "/providers/Microsoft.PowerApps/apis/shared_teams",
+                "tier": "NotSpecified"
+            },
+            "shared_excelonlinebusiness": {
+                "connectionName": "shared-excelonlinebu-9224fb49-0744-4eff-bce4-ae317e7740ba",
+                "source": "Embedded",
+                "id": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+                "tier": "NotSpecified"
+            },
+            "shared_office365users": {
+                "connectionName": "shared-office365user-25c4874c-6e61-46c0-b21a-2aeb21b9f723",
+                "source": "Embedded",
+                "id": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+                "tier": "NotSpecified"
+            },
+            "shared_office365": {
+                "connectionName": "shared-office365-1c23ac65-8e4e-4186-ab82-517e149ffcdb",
+                "source": "Embedded",
+                "id": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                "tier": "NotSpecified"
+            }
+        },
+        "flowFailureAlertSubscribed": false,
+        "isManaged": false
+    }
+}

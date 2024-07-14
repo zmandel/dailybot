@@ -1,0 +1,141 @@
+{
+    "schema": "1.0",
+    "details": {
+        "displayName": "Daily bot",
+        "description": "",
+        "createdTime": "2024-07-07T19:35:11.6553146Z",
+        "packageTelemetryId": "6a506747-78e8-46f4-80d3-8e89c7f8e3d0",
+        "creator": "N/A",
+        "sourceEnvironment": ""
+    },
+    "resources": {
+        "d16dcb22-5094-44f3-8c3c-d7afb67a47cd": {
+            "type": "Microsoft.Flow/flows",
+            "suggestedCreationType": "New",
+            "creationType": "Existing, New, Update",
+            "details": {
+                "displayName": "Daily bot"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Root",
+            "dependsOn": [
+                "a152ce70-2a42-4a53-84c3-91df25a0ad9c",
+                "d36b9825-2418-43be-93f1-164b2a3b540e",
+                "4447afbb-d1ea-4d29-b659-931afd1a503c",
+                "34115668-d6c9-4479-bae7-dea6121e36c8",
+                "ff9c90db-1009-4276-868d-195480e606e3",
+                "dd7a6b0b-f295-4d23-98be-db12d762b969",
+                "51d86f6e-b0ab-400c-8069-743186592d65",
+                "09fb425d-5ee0-49f0-a4a8-67c0d09c3f6a"
+            ]
+        },
+        "a152ce70-2a42-4a53-84c3-91df25a0ad9c": {
+            "id": "/providers/Microsoft.PowerApps/apis/shared_teams",
+            "name": "shared_teams",
+            "type": "Microsoft.PowerApps/apis",
+            "suggestedCreationType": "Existing",
+            "details": {
+                "displayName": "Microsoft Teams",
+                "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1690/1.0.1690.3719/teams/icon.png"
+            },
+            "configurableBy": "System",
+            "hierarchy": "Child",
+            "dependsOn": []
+        },
+        "d36b9825-2418-43be-93f1-164b2a3b540e": {
+            "type": "Microsoft.PowerApps/apis/connections",
+            "suggestedCreationType": "Existing",
+            "creationType": "Existing",
+            "details": {
+                "displayName": "Connection to Teams",
+                "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1680/1.0.1680.3652/teams/icon.png"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Child",
+            "dependsOn": [
+                "a152ce70-2a42-4a53-84c3-91df25a0ad9c"
+            ]
+        },
+        "4447afbb-d1ea-4d29-b659-931afd1a503c": {
+            "id": "/providers/Microsoft.PowerApps/apis/shared_excelonlinebusiness",
+            "name": "shared_excelonlinebusiness",
+            "type": "Microsoft.PowerApps/apis",
+            "suggestedCreationType": "Existing",
+            "details": {
+                "displayName": "Excel Online (Business)",
+                "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1680/1.0.1680.3652/excelonlinebusiness/icon.png"
+            },
+            "configurableBy": "System",
+            "hierarchy": "Child",
+            "dependsOn": []
+        },
+        "34115668-d6c9-4479-bae7-dea6121e36c8": {
+            "type": "Microsoft.PowerApps/apis/connections",
+            "suggestedCreationType": "Existing",
+            "creationType": "Existing",
+            "details": {
+                "displayName": "Connection to excel online",
+                "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1680/1.0.1680.3652/excelonlinebusiness/icon.png"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Child",
+            "dependsOn": [
+                "4447afbb-d1ea-4d29-b659-931afd1a503c"
+            ]
+        },
+        "ff9c90db-1009-4276-868d-195480e606e3": {
+            "id": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+            "name": "shared_office365users",
+            "type": "Microsoft.PowerApps/apis",
+            "suggestedCreationType": "Existing",
+            "details": {
+                "displayName": "Office 365 Users",
+                "iconUri": "https://connectoricons-prod.azureedge.net/u/jayawan/releases/v1.0.1694/1.0.1694.3753/office365users/icon.png"
+            },
+            "configurableBy": "System",
+            "hierarchy": "Child",
+            "dependsOn": []
+        },
+        "dd7a6b0b-f295-4d23-98be-db12d762b969": {
+            "type": "Microsoft.PowerApps/apis/connections",
+            "suggestedCreationType": "Existing",
+            "creationType": "Existing",
+            "details": {
+                "displayName": "Connection to office 365 users",
+                "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1677/1.0.1677.3637/office365users/icon.png"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Child",
+            "dependsOn": [
+                "ff9c90db-1009-4276-868d-195480e606e3"
+            ]
+        },
+        "51d86f6e-b0ab-400c-8069-743186592d65": {
+            "id": "/providers/Microsoft.PowerApps/apis/shared_office365",
+            "name": "shared_office365",
+            "type": "Microsoft.PowerApps/apis",
+            "suggestedCreationType": "Existing",
+            "details": {
+                "displayName": "Office 365 Outlook",
+                "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1686/1.0.1686.3706/office365/icon.png"
+            },
+            "configurableBy": "System",
+            "hierarchy": "Child",
+            "dependsOn": []
+        },
+        "09fb425d-5ee0-49f0-a4a8-67c0d09c3f6a": {
+            "type": "Microsoft.PowerApps/apis/connections",
+            "suggestedCreationType": "Existing",
+            "creationType": "Existing",
+            "details": {
+                "displayName": "Connection to office 365",
+                "iconUri": "https://connectoricons-prod.azureedge.net/u/laborbol/partial-builds/390724148/1.0.1641.3327/office365/icon.png"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Child",
+            "dependsOn": [
+                "51d86f6e-b0ab-400c-8069-743186592d65"
+            ]
+        }
+    }
+}
