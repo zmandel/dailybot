@@ -29,6 +29,7 @@ Get the team ready for the daily by compiling the data before each daily.
   - before, today: achieved yesterday, today.
   - blocking: blocking issues or alerts.
 
+Download the package zip from "Releases".
 
 **This genAI prompt** works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat). Place it in the "system prompt" and attach the excel file to the first user message:
 
