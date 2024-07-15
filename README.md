@@ -2,8 +2,8 @@
 Microsoft Power Automate flow for compiling team Dailys.
 Get the team ready for the daily by compiling the data before each daily.
 
-The bot asks each team member each morning for their daily, with a 1.5 hour deadline to fill.
-Once all fill it (or time expires) it is consolidated and shared.
+The bot asks each team member every work morning for their daily, giving a 1.5 hour deadline to fill.
+Once all fill it (or time expires) it is consolidated and shared with the team.
 
 **Features:**
 
