@@ -29,7 +29,7 @@ Microsoft Power Automate flow for asynchronous Dailys
   - blocking: blocking issues or alerts.
 
 
-**This genAI prompt** works great with Google Gemini Pro 1.5. Place it in the "system prompt" and attach the excel file to the first user message:
+**This genAI prompt** works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat). Place it in the "system prompt" and attach the excel file to the first user message:
 
 ---
 **Task**: As an expert program manager, your role is to synthesize a team progress report from daily scrum entries presented in an Excel table.
