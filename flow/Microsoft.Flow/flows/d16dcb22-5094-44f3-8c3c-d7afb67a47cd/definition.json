@@ -276,7 +276,7 @@
                                 "operationMetadataId": "9034f2e2-a4e8-47da-a1ed-3162c0cdddf5"
                             },
                             "type": "Compose",
-                            "inputs": "@if(\n    and(\n        not(contains(coalesce(body('Post_Form_to_user')?['data']?['blockers'], ''), ' ')),\n        not(contains(coalesce(body('Post_Form_to_user')?['data']?['blockers'], ''), variables('newline'))),\n        startsWith(toLower(coalesce(body('Post_Form_to_user')?['data']?['blockers'], '')), 'ning')\n    ), \n    '', \n    coalesce(body('Post_Form_to_user')?['data']?['blockers'], '')\n)\n"
+                            "inputs": "@if(\n    and(\n        not(contains(coalesce(body('Post_Form_to_user')?['data']?['blockers'], ''), ' ')),\n        not(contains(coalesce(body('Post_Form_to_user')?['data']?['blockers'], ''), variables('newline'))),\n        startsWith(toLower(coalesce(body('Post_Form_to_user')?['data']?['blockers'], '')), outputs('Translations').prefixNothing)\n    ), \n    '', \n    coalesce(body('Post_Form_to_user')?['data']?['blockers'], '')\n)\n"
                         },
                         "Compose_time": {
                             "runAfter": {
@@ -1004,7 +1004,8 @@
                         "replyToUserPre": "Your Daily was",
                         "replyToUserLink": "entered here",
                         "replyToUserPost": "Goals for today:",
-                        "nameField": "Name"
+                        "nameField": "Name",
+                        "prefixNothing": "none"
                     },
                     "description": "Must have a single excel table with columns: date, time, squad, name, role, before, today, blocking"
                 }
