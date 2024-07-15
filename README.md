@@ -1,5 +1,6 @@
 ### Daily "Scrum" Bot for Microsoft Teams
-Microsoft Power Automate flow for asynchronous Dailys
+Microsoft Power Automate flow for compiling team Dailys.
+Get the team ready for the daily by compiling the data before each daily.
 
 **Features:**
 
