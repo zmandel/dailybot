@@ -5,6 +5,13 @@ Get the team ready for the daily by compiling the data before each daily.
 The bot asks each team member every work morning for their daily, giving a 1.5 hour deadline to fill.
 Once all fill it (or time expires) it is consolidated and shared with the team, timed a few minutes before the synchronous Daily.
 
+![form](https://github.com/user-attachments/assets/33c971fb-091c-4dba-b0bf-8fa511ec5413)
+
+⇉ 
+
+![table](https://github.com/user-attachments/assets/3c2f2da6-3ef4-4e23-a698-07afcba8a50a)
+
+
 ## Features
 
 - [x] **Automated Check-ins**: Each morning, the bot sends a chat form to team members to gather their daily status. The form, which includes a set deadline, prompts responses on:
