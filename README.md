@@ -43,7 +43,8 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
  
 # Generate a project status report with genAI
 This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat). Place it in the "system prompt" and attach the excel file to the first user message:
----
+
+```
 **Task**: As an expert program manager, your role is to synthesize a team progress report from daily scrum entries presented in an Excel table.
 
 **Input Data**: The provided Excel table consists of daily scrum reports from each team member. The table is structured with the following columns:
@@ -70,4 +71,4 @@ Generate a comprehensive progress report with these sections:
  - Role Member Performance (for each "role") based on your team member performance report.
  - Areas of improvements
 
----
+```
