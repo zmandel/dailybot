@@ -42,7 +42,7 @@ From [Releases](https://github.com/zmandel/dailybot/releases/), download the pac
   - The "Define language" step is used for the names of the week days.
  
 ## Generate a project status report with genAI
-This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat). It will generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt" and attach the excel file to the first user message:
+This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat) to generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt" and attach the excel file to the first user message:
 
 ```
 **Task**: As an expert program manager, your role is to synthesize a team progress report from daily scrum entries presented in an Excel table.
