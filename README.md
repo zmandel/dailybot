@@ -78,6 +78,6 @@ Generate a comprehensive progress report with these sections:
  - Key Events & Milestones (past, current and future)
  - Team Member Performance (for each member "name")
  - Role Member Performance (for each "role") based on your team member performance report.
- - Areas of improvements
+ - Areas of improvements (at member, role and team levels)
 
 ```
