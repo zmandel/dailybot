@@ -31,7 +31,10 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
    - Once the user sends the form response, their "goals for today" are sent to their chat along with a link to their response posted.
    - The "role" of each user is queried from the "Office365 user directory" and included in the excel table to help genAI analysis.
    - The "Blockers" field ignores single-words like "none", based on "translations.prefixNothing" to keep that column clean in the consolidated reports.
-  
+
+## Installation
+From "Releases", download the package for your language, then install it from Microsoft Power Automate "Import Package". You may also generate your own "zip" package using the source and your custom language translation (see the "translations" directory).
+
 ## Technical details
   - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
   - The form is sent to each user in parallel by using Power Automate´s "Concurrency control" feature in the "for-each" loop, and with a set deadline.
