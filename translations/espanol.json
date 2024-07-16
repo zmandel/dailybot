@@ -1,0 +1,21 @@
+{
+    "deadlineAlert": "enviar antes de 9:35am",
+    "obligatoryFieldError": "Este campo es obligatorio.",
+    "achievedBeforeQuestion": "¿Qué lograste ayer?",
+    "goalsTodayQuestion": "¿Qué esperas lograr hoy?",
+    "placeholderBlocking": "Deja vacío si no tienes bloqueantes o alertas",
+    "blockersQuestion": "¿Qué bloqueantes o alertas tienes?",
+    "sendButton": "Enviar Daily",
+    "thankyouAfterSend": "Gracias!",
+    "expiredTimeAlertPre": "Expiró el tiempo para llenar la Daily por el formulario. Puedes hacerlo",
+    "expiredTimeAlertMiddleLink": "en el canal",
+    "expiredTimeAlertPost": "pero ya no saldrá en el resumen final. 😞",
+    "achievedBeforeTitle": "Logros ayer",
+    "goalsTodayTitle": "Metas para hoy",
+    "blockersTitle": "Bloqueantes y alertas",
+    "replyToUserPre": "Tu Daily fue",
+    "replyToUserLink": "ingresada aquí",
+    "replyToUserPost": "Metas para hoy:",
+    "nameField": "Nombre",
+    "prefixNothing": "ning"
+}

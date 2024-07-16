@@ -1,0 +1,21 @@
+{
+    "deadlineAlert": "send before 9:35am",
+    "obligatoryFieldError": "Obligatory.",
+    "achievedBeforeQuestion": "¿What did you achieve yesterday?",
+    "goalsTodayQuestion": "¿What are your goals for today?",
+    "placeholderBlocking": "Leave empty if you don't have any.",
+    "blockersQuestion": "What blocking issues or alerts do you have?",
+    "sendButton": "Send Daily",
+    "thankyouAfterSend": "Thanks!",
+    "expiredTimeAlertPre": "Time expired to send the Daily. You can do it",
+    "expiredTimeAlertMiddleLink": "in the channel",
+    "expiredTimeAlertPost": "but it wont appear in the daily summary. 😞",
+    "achievedBeforeTitle": "Achievements yesterday",
+    "goalsTodayTitle": "Goals for today",
+    "blockersTitle": "Blocking issues and alerts",
+    "replyToUserPre": "Your Daily was",
+    "replyToUserLink": "entered here",
+    "replyToUserPost": "Goals for today:",
+    "nameField": "Name",
+    "prefixNothing": "none"
+}

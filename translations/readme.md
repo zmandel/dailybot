@@ -1,0 +1,1 @@
+Replace the "Translations" step content with the content of your chosen translation json file.
