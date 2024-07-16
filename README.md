@@ -27,10 +27,10 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 - [x] **Ready for AI analysis**: The historical data in the Excel table contains columns to enable data analisis with GenAI. See below for a sample genAI prompt that generates a status report with an analysis per user, per role, and the team as as a whole.
 
 - [x] **Aditional features**:
-   - The first user to send the daily is rewarded with a crown 👑.
+   - The first user to send the daily is rewarded with a crown 👑. Use it to give recognition and foment an early form submission.
    - Once the user sends the form response, their "goals for today" are sent to their chat along with a link to their response posted.
    - The "role" of each user is queried from the "Office365 user directory" and included in the excel table to help genAI analysis.
-   - The "Blockers" field ignores single-words like "none" by using "translations.prefixNothing".
+   - The "Blockers" field ignores single-words like "none", based on "translations.prefixNothing" to keep that column clean in the consolidated reports.
   
 ## Technical details
   - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
