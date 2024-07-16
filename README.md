@@ -33,7 +33,7 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 
 - [x] **Multilingual Support**: Ready-to-use translations are available in both English and Spanish. All language-specific texts are centralized in a single JSON step.
 
-- [x] **Ready for AI analysis**: The historical data in the Excel table contains columns to enable data analisis with GenAI. See below for a sample genAI prompt that generates a surprisingly rich and accurate status report with an analysis per user, per role, and the team as as a whole.
+- [x] **Ready for genAI analysis**: The historical data in the Excel table contains columns to enable AI data analisis. Included below is a sample genAI prompt that generates a surprisingly rich and accurate status report with an analysis per user, per role, and the team as a whole.
 
 - [x] **Aditional features**:
    - The first user to send the daily is rewarded with a crown 👑. Use it to give recognition and foment an early form submission.
