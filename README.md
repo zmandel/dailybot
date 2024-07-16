@@ -33,7 +33,7 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
    - The "Blockers" field ignores single-words like "none", based on "translations.prefixNothing" to keep that column clean in the consolidated reports.
 
 ## Installation
-From "Releases", download the package for your language, then install it from Microsoft Power Automate "Import Package". You may also generate your own "zip" package using the source and your custom language translation (see the "translations" directory).
+From [Releases](https://github.com/zmandel/dailybot/releases/), download the package for your language, then install it from Microsoft Power Automate "Import Package". You may also generate your own "zip" package using the source and your custom language translation (see the "translations" directory).
 
 ## Technical details
   - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
