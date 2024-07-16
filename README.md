@@ -8,7 +8,7 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 <table style="border-collapse: collapse; width: 100%;">
   <tr style="border: none;">
     <td style="border: none; padding: 0;"><img src="https://github.com/user-attachments/assets/33c971fb-091c-4dba-b0bf-8fa511ec5413" alt="Teams Form" style="width:350px; border: none;"/></td>
-    <td style="border: none; padding: 0; text-align: center;">⇉</td>
+    <td style="border: none; padding: 0; text-align: center;">⇉<br>⇉<br>⇉</td>
     <td style="border: none; padding: 0;"><img src="https://github.com/user-attachments/assets/3c2f2da6-3ef4-4e23-a698-07afcba8a50a" alt="Teams Table" style="width:550px; border: none;"/></td>
   </tr>
 </table>
