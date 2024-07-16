@@ -33,7 +33,7 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 
 - [x] **Multilingual Support**: Ready-to-use translations are available in both English and Spanish. All language-specific texts are centralized in a single JSON step.
 
-- [x] **Ready for AI analysis**: The historical data in the Excel table contains columns to enable data analisis with GenAI. See below for a sample genAI prompt that generates a status report with an analysis per user, per role, and the team as as a whole.
+- [x] **Ready for AI analysis**: The historical data in the Excel table contains columns to enable data analisis with GenAI. See below for a sample genAI prompt that generates a surprisingly rich and accurate status report with an analysis per user, per role, and the team as as a whole.
 
 - [x] **Aditional features**:
    - The first user to send the daily is rewarded with a crown 👑. Use it to give recognition and foment an early form submission.
@@ -75,7 +75,7 @@ Identify Blockers: Pay special attention to the "blocking" column to identify an
 **Expected Outcome**:
 Generate a comprehensive progress report with these sections:
  - Overall Team Observations
- - Key Events & Milestones
+ - Key Events & Milestones (past, current and future)
  - Team Member Performance (for each member "name")
  - Role Member Performance (for each "role") based on your team member performance report.
  - Areas of improvements
