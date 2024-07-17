@@ -1,6 +1,7 @@
 # Daily "Scrum" Bot for Microsoft Teams
 Microsoft Power Automate flow for compiling team Dailys.
-Get the team ready for the daily by compiling the data before each daily.
+
+Get the team ready by compiling the data before each daily.
 
 The bot asks each team member every work morning for their daily, giving a 1.5 hour deadline to fill.
 Once all fill it (or time expires) it is consolidated and shared with the team, timed a few minutes before the synchronous Daily.
@@ -51,7 +52,7 @@ From [Releases](https://github.com/zmandel/dailybot/releases/), download the pac
   - The "Define language" step is used for the names of the week days.
  
 ## Generate a project status report with genAI
-This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat) to generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt" and attach the excel file to the first user message:
+This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat) to generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt", use a very low or zero Temperature and attach the excel file to the first user message:
 
 ```
 **Task**: As an expert program manager, your role is to synthesize a team progress report from daily scrum entries presented in an Excel table.
