@@ -55,7 +55,7 @@ From [Releases](https://github.com/zmandel/dailybot/releases/), download the pac
 This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat) to generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt", use a very low or zero Temperature and attach the excel file to the first user message:
 
 ```
-**Task**: As an expert program manager, your role is to synthesize a team progress report from daily scrum entries presented in an Excel table.
+**Task**: As an expert project manager, your role is to synthesize a team progress report from daily scrum entries presented in an Excel table.
 
 **Input Data**: The provided Excel table consists of daily scrum reports from each team member. The table is structured with the following columns:
 
