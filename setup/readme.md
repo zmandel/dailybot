@@ -1,5 +1,5 @@
 # Setup instructions
-Note: You might want to first use a "test" channel with just you as a member in the channel and tag. Once its working, replace for the final values.
+Note: You might want to first use a "test" channel with just you as a member in the channel and tag. Once its working, replace with the final values.
 
 1. Pick a Teams channel where the bot will publish Daily responses (channel 1) , and a channel where the "daily.xlsx" historical data will be saved (channel 2). Both channels could be the same. The team from "Channel 1" must have a [tag](https://support.microsoft.com/en-us/office/using-tags-in-microsoft-teams-667bd56f-32b8-4118-9a0b-56807c96d91e) that defines the team members for the daily.
    
