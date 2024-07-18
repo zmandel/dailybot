@@ -16,7 +16,6 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 
 
 ## Features
-
 - [x] **Automated Check-ins**: Each morning, the bot sends a chat form to team members to gather their daily status. The form, which includes a set deadline, prompts responses on:
   - Achievements from the previous day.
   - Objectives for the current day.
@@ -45,7 +44,7 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 ## Installation
 Follow the steps in [setup](https://github.com/zmandel/dailybot/blob/main/setup/readme.md). Its just downloading a zip package, importing it into Power Automate and filling a few fields for your teams channel, team members tag and so on.
  
-## Generate a project status report with genAI
+## Generate a project status report from daily history with genAI
 This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat) to generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt", use a very low or zero Temperature and attach the excel file to the first user message:
 
 ```
