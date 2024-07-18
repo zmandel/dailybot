@@ -17,7 +17,7 @@ Note: You might want to first use a "test" channel with just you as a member in 
     - **6 Define excel channel**:  this is your "channel 2" URL.
     - **7 Define excel file**: pick the same channel as the one in the previous step, and the path to the excel file.
     - Optionally, the "Translations" step allows for customization of all texts:
-      <details><summary>Translations customizations</summary>
+      <details><summary>Click for Translations customizations</summary>
       - deadlineAlert, obligatoryFieldError, Obligatory, achievedBeforeQuestion, goalsTodayQuestion, placeholderBlocking, blockersQuestion, sendButton: For the "Daily" form sent to each team member.<br>
       - thankyouAfterSend, expiredTimeAlertPre, expiredTimeAlertMiddleLink, expiredTimeAlertPost: For the reply after the user sends the form.<br>
       - achievedBeforeTitle, goalsTodayTitle, blockersTitle: For the post the bot makes for each filled form.<br>
