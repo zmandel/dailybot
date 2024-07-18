@@ -16,7 +16,6 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 
 
 ## Features
-
 - [x] **Automated Check-ins**: Each morning, the bot sends a chat form to team members to gather their daily status. The form, which includes a set deadline, prompts responses on:
   - Achievements from the previous day.
   - Objectives for the current day.
