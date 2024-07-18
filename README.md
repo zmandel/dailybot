@@ -44,12 +44,6 @@ Once all fill it (or time expires) it is consolidated and shared with the team, 
 
 ## Installation
 Follow the steps in [setup](https://github.com/zmandel/dailybot/blob/main/setup/readme.md). Its just downloading a zip package, importing it into Power Automate and filling a few fields for your teams channel, team members tag and so on.
-
-## Technical details
-  - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
-  - The form is sent to each user in parallel by using Power Automate´s "Concurrency control" feature in the "for-each" loop, and with a set deadline.
-  - To handle parallelism inside that loop, only "compose" actions are used as local "write" variables (except "orderedUsers" but in a safe way)
-  - The "Define language" step is used for the names of the week days.
  
 ## Generate a project status report with genAI
 This prompt works great with [Google Gemini Pro 1.5](https://aistudio.google.com/app/prompts/new_chat) to generate a status report with an analysis per user, per role, and the team as as a whole. Place it in the "system prompt", use a very low or zero Temperature and attach the excel file to the first user message:
@@ -80,5 +74,9 @@ Generate a comprehensive progress report with these sections:
  - Team Member Performance (for each member "name")
  - Role Member Performance (for each "role") based on your team member performance report.
  - Areas of improvements (at member, role and team levels)
-
 ```
+## Technical details
+  - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
+  - The form is sent to each user in parallel by using Power Automate´s "Concurrency control" feature in the "for-each" loop, and with a set deadline.
+  - To handle parallelism inside that loop, only "compose" actions are used as local "write" variables (except "orderedUsers" but in a safe way)
+  - Some actions with Teams/Excel at the beginning use a custom retry policy, otherwise 5-minute delays can occur as the Office365 services "wake up".
