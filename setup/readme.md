@@ -18,12 +18,12 @@
     - **7 Define excel file**: pick the same channel as the one in the previous step, and the path to the excel file.
     - Optionally, the "Translations" step allows for customization of all texts:
         <details><summary>Click for Translations customizations</summary>
-        - deadlineAlert, obligatoryFieldError, achievedBeforeQuestion, goalsTodayQuestion, placeholderBlocking, blockersQuestion, sendButton: For the "Daily" form sent to each team member.<br>
-        - thankyouAfterSend, expiredTimeAlertPre, expiredTimeAlertMiddleLink, expiredTimeAlertPost: For the reply after the user sends the form.<br>
-        - achievedBeforeTitle, goalsTodayTitle, blockersTitle: For the post the bot makes for each filled form.<br>
-        - replyToUserPre, replyToUserLink, replyToUserPost: For the bot reply to the user, listing their post link and goals for today.<br>
-        - nameField: For the name column in the table posted to the channel.<br>
-        - prefixNothing: prefix text for detecting single-words in "blockers" that should be ignored, like "none", "ning" (for ninguno/ningun/ninguna in spanish) etc.<br>
+        - deadlineAlert, obligatoryFieldError, achievedBeforeQuestion, goalsTodayQuestion, placeholderBlocking, blockersQuestion, sendButton: For the "Daily" form sent to each team member.<br><br>
+        - thankyouAfterSend, expiredTimeAlertPre, expiredTimeAlertMiddleLink, expiredTimeAlertPost: For the reply after the user sends the form.<br><br>
+        - achievedBeforeTitle, goalsTodayTitle, blockersTitle: For the post the bot makes for each filled form.<br><br>
+        - replyToUserPre, replyToUserLink, replyToUserPost: For the bot reply to the user, listing their post link and goals for today.<br><br>
+        - nameField: For the name column in the table posted to the channel.<br><br>
+        - prefixNothing: prefix text for detecting single-words in "blockers" that should be ignored, like "none", "ning" (for ninguno/ningun/ninguna in spanish) etc.<br><br>
         </details>
 
 5. Enable the flow.
