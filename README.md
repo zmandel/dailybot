@@ -1,10 +1,8 @@
 # Daily "Scrum" Bot for Microsoft Teams
-Microsoft Power Automate flow for compiling team Dailys.
-
-Get the team ready by compiling the data before each daily.
+Microsoft Power Automate flow for compiling team Daily info.
 
 The bot asks each team member every work morning for their daily, giving a 1.5 hour deadline to fill.
-Once all fill it (or time expires) it is consolidated and shared with the team, timed a few minutes before the synchronous Daily.
+Once all fill it (or time expires) it is consolidated and shared with the team, timed before the actual Daily meeting.
 
 <table style="border-collapse: collapse; width: 100%;">
   <tr>
