@@ -16,7 +16,7 @@
     - **5 Define language**: Used for certain texts like the weekday name.
     - **6 Define excel channel**:  this is your "channel 2" URL.
     - **7 Define excel file**: pick the same channel as the one in the previous step, and the path to the excel file.
-    - **8 In the "for each" step**: make sure under "settings" the "concurrency control" is ON, so the form is sent in parallel to all members.
+    - **8 In the "for each" step**: due to a bug in power automate, make sure under "settings" the "concurrency control" is ON, so the form is sent in parallel to all members.
     - Optionally, the "Translations" step allows for customization of all texts:
         <details><summary>Click for Translations customizations</summary>
       <br>
