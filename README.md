@@ -72,6 +72,8 @@ Generate a comprehensive progress report with these sections:
  - Role Member Performance (for each "role") based on your team member performance report.
  - Areas of improvements (at member, role and team levels)
 ```
+If you plan to use the prompt frequently, you can change the "Add row to Excel" step for a "Add row to a Google Sheet" and always use that sheet from Google AI Studio.
+
 ## Technical details
   - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
   - The form is sent to each user in parallel by using Power Automate´s "Concurrency control" feature in the "for-each" loop, and with a set deadline.
