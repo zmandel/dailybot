@@ -72,7 +72,7 @@ Generate a comprehensive progress report with these sections:
  - Role Member Performance (for each "role") based on your team member performance report.
  - Areas of improvements (at member, role and team levels)
 ```
-If you plan to use the prompt frequently, you can change the "Add row to Excel" step for a "Add row to a Google Sheet" and always use that sheet from Google AI Studio.
+If you plan to use the prompt frequently, you can add a step or change the "Add row to Excel" step for an "Add row to a Google Sheet" step. That way, your Google AI Studio prompt can always attach that same Google Sheet instead of having to re-upload it every time.
 
 ## Technical details
   - The Daily form is inlined in the chat by using "Adaptive Cards" for Teams.
