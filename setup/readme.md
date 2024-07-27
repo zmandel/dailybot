@@ -8,6 +8,7 @@
 3.  Download the flow package from [Releases](https://github.com/zmandel/dailybot/releases) for your language, then import it from Microsoft Power Automate [Import Package](https://learn.microsoft.com/en-us/power-automate/export-import-flow-non-solution#import-a-flow). You may also generate your own "zip" package using the [source](https://github.com/zmandel/dailybot/tree/main/flow) and an optional custom language [translation](https://github.com/zmandel/dailybot/tree/main/translations). During import, it will guide you to create the necessary connections to Teams, Excel online and so on. 
 
 4.  Edit the flow and fill-in the numbered steps at the top, following the instructions inside each step.
+   Important: do not use the "new designer" to avoid [this bug](https://community.powerplatform.com/forums/thread/details/?threadid=acdfd5ed-d449-ef11-a317-6045bdeef8e9).
     - **0 Define Recurrence**: Customize the time-zone, hour to run.
     - **1 Define email to send daily summary**: leave empty for none
     - **2 Define URL of channel to post**: this is your "channel 1" URL. Copy from "Copy Link to Channel" in the Teams Channel to post the daily. Starts with "https<span>://teams.microsoft.com/l/channel/..."
@@ -16,7 +17,6 @@
     - **5 Define language**: Used for certain texts like the weekday name.
     - **6 Define excel channel**:  this is your "channel 2" URL.
     - **7 Define excel file**: pick the same channel as the one in the previous step, and the path to the excel file.
-    - **8 In the "for each" step**: due to a bug in power automate, make sure under "settings" the "concurrency control" is ON, so the form is sent in parallel to all members.
     - Optionally, the "Translations" step allows for customization of all texts:
         <details><summary>Click for Translations customizations</summary>
       <br>
@@ -28,4 +28,4 @@
         - prefixNothing: prefix text for detecting single-words in "blockers" that should be ignored, like "none", "ning" (for ninguno/ningun/ninguna in spanish) etc.<br><br>
         </details>
 
-5. Enable the flow.
+6. Enable the flow.
