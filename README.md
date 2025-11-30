@@ -1,6 +1,8 @@
 # Daily "Scrum" Bot for Microsoft Teams
 Microsoft Power Automate flow for compiling team Daily info.
 
+Soon I'll publish a new version that integrates with AI to read the sprint tickets from Jira, identify tasks mentioned and produce a summary with alerts, posted to Team before the actual Daily.
+
 The bot asks each team member every work morning for their daily, giving a 1.5 hour deadline to fill.
 Once all fill it (or time expires) it is consolidated and shared with the team, timed before the actual Daily meeting.
 
